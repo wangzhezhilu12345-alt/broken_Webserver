@@ -42,6 +42,21 @@ void http::Httpserver::Init()
     }
     _listensock.Listen();
 }
+void http::Httpserver::Run()
+{
+    while (1)
+    {
+        Socket::Clientsocket clientsocket;
+        int ret = _listensock.Accept(clientsocket);
+        if (ret < 0)
+        {
+            continue;
+        }
+        // 然后解析请求
+        http::Httpserver::do_request(clientsocket);
+        close(clientsocket._sockfd);
+    }
+}
 void Httpserver::do_request(Socket::Clientsocket &clientsock)
 {
     char buffer[BUFFERSIZE];
@@ -101,21 +116,6 @@ void Httpserver::do_request(Socket::Clientsocket &clientsock)
             // 就输出一个错误，暂时没想好post请求怎么处理
             std::cout << "Bad Request" << std::endl;
         }
-    }
-}
-void http::Httpserver::Run()
-{
-    while (1)
-    {
-        Socket::Clientsocket clientsocket;
-        int ret = _listensock.Accept(clientsocket);
-        if (ret < 0)
-        {
-            continue;
-        }
-        // 然后解析请求
-        http::Httpserver::do_request(clientsocket);
-        close(clientsocket._sockfd);
     }
 }
 // 这个函数我在全局定义的
