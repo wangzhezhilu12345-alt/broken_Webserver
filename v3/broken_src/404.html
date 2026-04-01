@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        :root {
+            --bg: #f7efe6;
+            --panel: rgba(255, 252, 248, 0.92);
+            --ink: #1a2233;
+            --muted: #5d6679;
+            --accent: #d7643f;
+            --accent-dark: #8a3042;
+            --line: rgba(26, 34, 51, 0.1);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(215, 100, 63, 0.22), transparent 24%),
+                radial-gradient(circle at 80% 80%, rgba(138, 48, 66, 0.18), transparent 26%),
+                linear-gradient(135deg, #fbf5ee, #f0ddd0);
+            font-family: "Segoe UI", "PingFang SC", sans-serif;
+            color: var(--ink);
+        }
+        .panel {
+            width: min(820px, 100%);
+            padding: 34px;
+            border-radius: 30px;
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 30px 70px rgba(66, 40, 30, 0.16);
+        }
+        .meta {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.84);
+            color: var(--accent-dark);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+        .code {
+            margin: 18px 0 10px;
+            font-size: clamp(70px, 15vw, 140px);
+            line-height: 0.95;
+            color: var(--accent);
+        }
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(26px, 4vw, 46px);
+        }
+        p {
+            margin: 0;
+            max-width: 620px;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 26px;
+        }
+        a {
+            text-decoration: none;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--ink);
+            font-weight: 700;
+        }
+        a.primary {
+            background: linear-gradient(135deg, var(--accent), #ee8058);
+            color: #fff8f2;
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <main class="panel">
+        <div class="meta">BROKEN SERVER ERROR PAGE</div>
+        <p class="code">404</p>
+        <h1>你访问的页面不见了</h1>
+        <p>这个地址没有找到对应资源。现在服务会返回一张真正的自定义错误页，而不是之前那种简单的纯文本，方便你直接测试错误态展示。</p>
+        <div class="actions">
+            <a class="primary" href="/">回到首页</a>
+            <a href="/504.html">去看 504 页面</a>
+        </div>
+    </main>
+</body>
+</html>
