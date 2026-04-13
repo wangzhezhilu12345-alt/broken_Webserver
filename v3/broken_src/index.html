@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Broken Server V3</title>
+    <title>Game Login</title>
     <style>
         :root {
-            --bg: #f7f1e8;
-            --paper: rgba(255, 252, 247, 0.92);
-            --ink: #172033;
-            --muted: #5d687c;
-            --line: rgba(23, 32, 51, 0.12);
-            --accent: #d95d39;
-            --accent-deep: #8c2f39;
-            --accent-soft: #ffe2d8;
-            --shadow: 0 24px 60px rgba(64, 41, 31, 0.16);
+            --bg-top: #f6ede2;
+            --bg-bottom: #dfd4c3;
+            --panel: rgba(255, 250, 244, 0.9);
+            --text: #1f2937;
+            --muted: #6b7280;
+            --line: rgba(31, 41, 55, 0.12);
+            --accent: #8a5a44;
+            --accent-deep: #5c3b2d;
+            --shadow: 0 28px 64px rgba(45, 31, 22, 0.18);
         }
 
         * {
@@ -24,221 +24,127 @@
         body {
             margin: 0;
             min-height: 100vh;
-            font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
-            color: var(--ink);
-            background:
-                radial-gradient(circle at top left, rgba(217, 93, 57, 0.22), transparent 32%),
-                radial-gradient(circle at bottom right, rgba(140, 47, 57, 0.18), transparent 28%),
-                linear-gradient(135deg, #f9f3eb 0%, #f3e0cf 48%, #eed4c7 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 32px 18px;
-        }
-
-        .shell {
-            width: min(1080px, 100%);
-            background: var(--paper);
-            border: 1px solid rgba(255, 255, 255, 0.65);
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            backdrop-filter: blur(18px);
-        }
-
-        .hero {
-            padding: 52px 28px 28px;
+            padding: 24px;
+            color: var(--text);
             background:
-                linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(255, 244, 237, 0.7)),
-                linear-gradient(120deg, rgba(217, 93, 57, 0.12), rgba(140, 47, 57, 0.16));
-            border-bottom: 1px solid var(--line);
+                radial-gradient(circle at top left, rgba(138, 90, 68, 0.24), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(92, 59, 45, 0.18), transparent 28%),
+                linear-gradient(135deg, var(--bg-top), var(--bg-bottom));
+            font-family: "Segoe UI", sans-serif;
         }
 
-        .eyebrow {
+        .card {
+            width: min(460px, 100%);
+            padding: 34px;
+            border-radius: 28px;
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .tag {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
+            padding: 8px 12px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.72);
+            background: rgba(138, 90, 68, 0.12);
             color: var(--accent-deep);
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.08em;
         }
 
         h1 {
-            margin: 18px 0 12px;
-            font-size: clamp(34px, 6vw, 62px);
+            margin: 18px 0 10px;
+            font-size: 40px;
             line-height: 1.05;
         }
 
-        .hero p {
-            margin: 0;
-            max-width: 720px;
+        p {
+            margin: 0 0 26px;
             color: var(--muted);
-            font-size: 18px;
             line-height: 1.7;
         }
 
-        .actions,
-        .grid {
+        form {
             display: grid;
             gap: 16px;
         }
 
-        .actions {
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            margin-top: 28px;
-        }
-
-        .button,
-        .card {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .button {
-            padding: 16px 18px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, var(--accent), #ef7e56);
-            color: #fffaf5;
+        label {
+            display: grid;
+            gap: 8px;
+            font-size: 14px;
             font-weight: 700;
-            box-shadow: 0 16px 28px rgba(217, 93, 57, 0.22);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .button.alt {
-            background: rgba(255, 255, 255, 0.76);
-            color: var(--ink);
-            box-shadow: none;
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 16px;
             border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.88);
+            font-size: 16px;
+            outline: none;
         }
 
-        .button:hover,
-        .card:hover {
-            transform: translateY(-3px);
+        input:focus {
+            border-color: rgba(138, 90, 68, 0.7);
+            box-shadow: 0 0 0 4px rgba(138, 90, 68, 0.12);
         }
 
-        .content {
-            padding: 28px;
+        button {
+            margin-top: 6px;
+            border: 0;
+            border-radius: 16px;
+            padding: 15px 18px;
+            background: linear-gradient(135deg, var(--accent), #a9745d);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 18px 28px rgba(138, 90, 68, 0.22);
         }
 
-        .grid {
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
-
-        .card {
-            padding: 22px;
-            border-radius: 22px;
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.78);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .card:hover {
-            border-color: rgba(217, 93, 57, 0.38);
-        }
-
-        .card strong {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-
-        .card span,
-        .tips li,
-        code {
+        .hint {
+            margin-top: 18px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(92, 59, 45, 0.06);
             color: var(--muted);
-        }
-
-        .card code {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 6px 10px;
-            border-radius: 999px;
-            background: var(--accent-soft);
-            color: var(--accent-deep);
-            font-weight: 700;
-        }
-
-        .tips {
-            margin: 24px 0 0;
-            padding: 24px;
-            border-radius: 22px;
-            background: linear-gradient(180deg, rgba(23, 32, 51, 0.04), rgba(23, 32, 51, 0.02));
-        }
-
-        .tips h2 {
-            margin: 0 0 14px;
-            font-size: 22px;
-        }
-
-        .tips ul {
-            margin: 0;
-            padding-left: 18px;
-            line-height: 1.9;
-        }
-
-        @media (max-width: 640px) {
-            .hero,
-            .content {
-                padding: 22px;
-            }
-
-            .card,
-            .tips {
-                border-radius: 18px;
-            }
+            font-size: 14px;
+            line-height: 1.7;
         }
     </style>
 </head>
 <body>
-    <main class="shell">
-        <section class="hero">
-            <div class="eyebrow">BROKEN SERVER / V3</div>
-            <h1>V3 测试页已经就位</h1>
-            <p>这个首页主要给你快速验证当前 HTTP 服务能不能正常返回静态内容，以及 404、504 这类错误页是否已经切到自定义页面。</p>
-            <div class="actions">
-                <a class="button" href="/">刷新首页</a>
-                <a class="button alt" href="/missing-page">触发真实 404</a>
-                <a class="button alt" href="/504.html">查看 504 页面</a>
-            </div>
-        </section>
+    <main class="card">
+        <div class="tag">BROKEN SERVER LOGIN</div>
+        <h1>Game Login</h1>
+        <p>Enter your username and password. The backend will connect to MySQL, create the account on first login, and verify the password on later logins.</p>
 
-        <section class="content">
-            <div class="grid">
-                <a class="card" href="/missing-page">
-                    <strong>404 Not Found</strong>
-                    <span>访问一个不存在的地址，验证服务是否返回自定义 404 页面和正确状态码。</span>
-                    <code>/missing-page</code>
-                </a>
-                <a class="card" href="/404.html">
-                    <strong>404 Static Preview</strong>
-                    <span>直接进入 404 页面模板，用来检查样式、文案和布局细节。</span>
-                    <code>/404.html</code>
-                </a>
-                <a class="card" href="/500.html">
-                    <strong>500 Internal Error</strong>
-                    <span>预留服务内部错误页，方便后续统一扩展异常处理体验。</span>
-                    <code>/500.html</code>
-                </a>
-                <a class="card" href="/504.html">
-                    <strong>504 Gateway Timeout</strong>
-                    <span>网关超时页，可用来测试代理层超时后的前端展示效果。</span>
-                    <code>/504.html</code>
-                </a>
-            </div>
+        <form action="/login" method="post">
+            <label for="username">
+                Username
+                <input id="username" name="username" type="text" maxlength="32" autocomplete="username" required>
+            </label>
 
-            <section class="tips">
-                <h2>建议测试方式</h2>
-                <ul>
-                    <li>先访问首页，确认静态资源和布局正常。</li>
-                    <li>再点 <code>/missing-page</code>，确认浏览器显示的是 HTML 错误页，不是纯文本。</li>
-                    <li>直接打开 <code>/504.html</code>，确认状态码和页面内容都符合预期。</li>
-                </ul>
-            </section>
-        </section>
+            <label for="password">
+                Password
+                <input id="password" name="password" type="password" maxlength="64" autocomplete="current-password" required>
+            </label>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="hint">
+            Database target is configured at deploy time through environment variables.<br>
+            Use <strong>BROKEN_SERVER_DB_HOST</strong>, <strong>BROKEN_SERVER_DB_PORT</strong>, <strong>BROKEN_SERVER_DB_NAME</strong>, <strong>BROKEN_SERVER_DB_USER</strong>, <strong>BROKEN_SERVER_DB_PASSWORD</strong>
+        </div>
     </main>
 </body>
 </html>

@@ -1,32 +1,40 @@
 #pragma once
+
 #include "httpparse.h"
+
+#include <string>
 #include <unordered_map>
 
 namespace http
 {
-
     struct MimeType
     {
-        MimeType(const std::string &str) : type(str) {};
-        MimeType(const char *str) : type(str) {};
+        MimeType(const std::string &str) : type(str) {}
+        MimeType(const char *str) : type(str) {}
 
         std::string type;
-    };//这个是告诉前端要以怎么样的方式解析信息。
+    };
+
     class Httpresponse
     {
     public:
         void appenBuffer(char *buffer) const;
+
         enum HttpStatusCode
         {
             Unknow,
             OK = 200,
+            BadRequest400 = 400,
+            Unauthorized401 = 401,
+            Frobidden403 = 403,
+            NOTFOUND = 404,
+            MethodNotAllowed405 = 405,
             InternalServerError500 = 500,
             BadGateway502 = 502,
             ServiceUnavailable503 = 503,
-            GatewayTimeout504 = 504,
-            Frobidden403 = 403,
-            NOTFOUND = 404
+            GatewayTimeout504 = 504
         };
+
         Httpresponse()
             : Statuscode(Unknow),
               _Version(http::HttpRequest::HTTP_11),
@@ -34,19 +42,21 @@ namespace http
               _body(nullptr),
               _Contentlen(0),
               mime("text/html")
-        {}
+        {
+        }
 
-        
     public:
         HttpStatusCode Statuscode;
         http::HttpRequest::HTTP_VERSION _Version;
-        std::string statusmsg;//信息状态码.OK
+        std::string statusmsg;
         bool _isClose;
-        char *_body; // 内容主体
+        char *_body;
         int _Contentlen;
-        MimeType mime = "text/html"; 
-        std::unordered_map<std::string,std::string> _header;//这个是处理什么的
+        MimeType mime;
+        std::unordered_map<std::string, std::string> _header;
         std::string _filepath;
+        std::string _body_text;
     };
-    extern std::unordered_map < std::string,MimeType> mime_map;
+
+    extern std::unordered_map<std::string, MimeType> mime_map;
 }

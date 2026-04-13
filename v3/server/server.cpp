@@ -39,6 +39,11 @@ void serverapp::Server::Init()
         return result;
     });
 
+    if (!_page_service.Init())
+    {
+        std::cerr << "warning: failed to initialize MySQL login storage" << std::endl;
+    }
+
     if (_listensock.Bind() < 0)
     {
         perror("bind error");
